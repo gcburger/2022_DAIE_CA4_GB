@@ -3,9 +3,10 @@ title: "CA 4 Part B - Linear Regression Analysis"
 subtitle: "Analysis of linear regression performed on ramdomly sampled data from a pair of columns from a survey of gamer preferences. This includes statement and testing of assumptions followed by intrepretation and dicussion of obtained results."
 author: "Gareth Burger"
 date: "January, 2023"
-output: 
-  html_document:
-    code_folding: hide
+output:
+  html_notebook:
+    toc: yes
+toc-title: "Table of Contents"
 ---
 
 ```{r setup and library load, include=FALSE}
@@ -19,7 +20,11 @@ library("ggplot2")
 
 ---
 
-- Attempting to determine whether any two variables are correlated
+- Attempting to determine whether any two variables are correlated and if so, what the strength of the relationship between them is
+- what is the value of the dependent variable at a certain value of the the independent variable
+- clearly identify two chosen variables
+
+From the survey data, I am interested in the relationship between
 
 # Statement of Assumptions
 (clearly state any assumptions made with respect to the variables chosen for analysis)
@@ -50,7 +55,7 @@ library("ggplot2")
 • A 1-3 line description of each R code chunk
 
 ```{r Load Data, echo=TRUE}
-# R code chunk to load and randomly sample data
+# R code to load and randomly sample data
 # description: to randomly sample the data and to allow some degree of variability across results
 # The sample() function in R allows you to take a random sample of elements from a dataset or a vector, either with or without replacement
 
@@ -61,17 +66,42 @@ game_survey_data <- read.csv(file_name)
 # sample 200 random elements from the data
 
 # set.seed(some random number) to ensure that we get the same sample each time
-set.seed(387)
+set.seed(500)
 
 # sample a random vector of 200 elements from all 250 rows in the game_survey_data dataset
-sample_rows <- sample(1:nrow(game_survey_data), 200)
+sample_rows <- sample(1:nrow(game_survey_data), 200, replace = FALSE)
 sample_rows
 
 # select the 200 rows that match the sampled row numbers
 sample <- game_survey_data[sample_rows, ]
 sample
 
-View(sample)
+
+# Testing for Normality
+
+# Method 1: Using Histogram / Density Plot
+# draw histogram for avg_monthly_expenditure_dlc
+histogram <- hist(sample$avg_monthly_expenditure_dlc, 
+     main = "Average Monthly Expenditure on DLC", 
+     xlab = "Amount Spent", 
+     ylab = "Frequency", 
+     breaks = 30, 
+     col = 'steelblue')
+
+# Method 2: Using Q-Q Plot
+# perform qqnorm test on avg_monthly_expenditure_dlc
+qqnorm(sample$avg_monthly_expenditure_dlc, 
+       pch = 9, 
+       frame = FALSE, 
+       main = "Average Monthly Expenditure on DLC")
+qqline(sample$avg_monthly_expenditure_dlc, 
+       col = "darkorchid", 
+       lwd = 1)
+
+# Method 3: Statistical Test: Shapiro-Wilk
+# perform Shapiro-Wilk test for normality
+st <- shapiro.test(sample$avg_monthly_expenditure_dlc)
+st
 ```
 
 Step 3
@@ -85,18 +115,19 @@ https://www.scribbr.com/statistics/simple-linear-regression/
 - what is the degree of correlation, are they positively or negatively correlated
 
 ```{r}
-# R code code calculating linear regression for data
+# R code calculating linear regression for data
+
 
 ```
 
 ```{r}
-# R code chunk using GGPLOT2 to generate linear regression plot(s)
+# R code using GGPLOT2 to generate linear regression plot(s)
 
 # Create a scatter plot
 # https://ggplot2.tidyverse.org/
 # https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf
-ggplot(sample, aes(x = gender, y = avg_monthly_hrs_gaming)) +
-  labs(x = "Gender", y = "Avg monthly hours gaming", title = "Title") +
+ggplot(sample, aes(x = gender, y = avg_monthly_expenditure_dlc)) +
+  labs(x = "Gender", y = "Amount Spent", title = "Average Monthly Expenditure on DLC") +
   geom_point(aes(color = gender)) +
   theme_light()
   #theme_minimal()

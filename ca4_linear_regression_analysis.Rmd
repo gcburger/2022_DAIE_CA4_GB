@@ -1,12 +1,12 @@
 ---
 title: "CA 4 Part B - Linear Regression Analysis"
-subtitle: "Analysis of linear regression performed on ramdomly sampled data from a pair of columns from a survey of gamer preferences. This includes statement and testing of assumptions followed by intrepretation and dicussion of obtained results."
+subtitle: "Analysis of linear regression performed on randomly sampled data from a pair of columns from a survey of gamer preferences. This includes statement and testing of assumptions followed by intrepretation and dicussion of obtained results."
 author: "Gareth Burger"
 date: "January, 2023"
 output:
   html_notebook:
     toc: yes
-toc-title: "Table of Contents"
+toc-title: Table of Contents
 ---
 
 ```{r setup and library load, include=FALSE}
@@ -27,13 +27,15 @@ library("ggplot2")
 From the survey data, I am interested in the relationship between
 
 # Statement of Assumptions
-(clearly state any assumptions made with respect to the variables chosen for analysis)
+Linear regression testing makes certain assumptions concerning the data it is testing. These four assumptions are described as:\
 
- - the observations are independent i.e. respondents 1 giving their results didn't affects respondent 2's results
- - the values within a particular field, the data is normally distributed
- - homoscedasticity (the data points don't diverge from the linear line, does the data fit within the top and bottom bounding lines)
- - can assume randomly sampled and that no hidden relationships exist (as stated in CA, can restate)
- 
+1. **Independence** - observations are independent of each other
+2. **Linearity** - the relationship between the independent and dependent variable is linear (the line of best fit is a straight line)
+3. **Homoscedasticity** - the variance of the error doesn't change significantly for each value of the independent variable (the data points don't diverge significantly from the linear line of best fit)
+4. **Normality** - the data follows a normal distribution
+
+Furthermore, it can be assumed that the data is randomly sampled and that no hidden relationships exist among observations in the dataset.
+
 ---
 
 # Testing of Assumptions
@@ -48,6 +50,7 @@ From the survey data, I am interested in the relationship between
 5. Discuss and interpret the analysis conducted and results obtained.
 - degree of correlation, r2 value
 - should end with a plot of data and a line that fits the data - use ggplot
+
 
 ---
 
@@ -81,7 +84,7 @@ sample
 
 # Method 1: Using Histogram / Density Plot
 # draw histogram for avg_monthly_expenditure_dlc
-histogram <- hist(sample$avg_monthly_expenditure_dlc, 
+hist(sample$avg_monthly_expenditure_dlc, 
      main = "Average Monthly Expenditure on DLC", 
      xlab = "Amount Spent", 
      ylab = "Frequency", 
@@ -89,7 +92,7 @@ histogram <- hist(sample$avg_monthly_expenditure_dlc,
      col = 'steelblue')
 
 # Method 2: Using Q-Q Plot
-# perform qqnorm test on avg_monthly_expenditure_dlc
+# perform qqnorm test on avg_monthly_expenditure_dc
 qqnorm(sample$avg_monthly_expenditure_dlc, 
        pch = 9, 
        frame = FALSE, 

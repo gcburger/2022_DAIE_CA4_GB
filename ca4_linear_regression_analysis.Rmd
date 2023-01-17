@@ -94,7 +94,10 @@ https://www.scribbr.com/statistics/simple-linear-regression/
 
 # Create a scatter plot
 # https://ggplot2.tidyverse.org/
+# https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf
 ggplot(sample, aes(x = gender, y = avg_monthly_hrs_gaming)) +
+  labs(x = "Gender", y = "Avg monthly hours gaming", title = "Title") +
   geom_point(aes(color = gender)) +
-  theme_minimal()
+  theme_light()
+  #theme_minimal()
 ```

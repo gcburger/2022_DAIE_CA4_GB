@@ -1,25 +1,11 @@
---- 
+---
 title: "CA4 RDBMS - Generate Database"
-author: "Gareth Burger"
 subtitle: "Generating a SQLite database"
-date: "`r format(Sys.time(), '%a, %d %B %y')`"
-always_allow_html: true
-output:
+author: "Gareth Burger"
+date: "January, 2023"
+output: 
   html_document:
-    toc: yes
-    toc_title: Table Of Contents
-    toc_float: yes
-    toc_depth: 3
-    fig_caption: no
-    lof: yes
-    number_sections: yes
     code_folding: hide
-    theme: paper
-  pdf_document:
-    toc: true
-    toc_depth: 3
-    number_sections: true
-fontsize: 10pt
 ---
 
 ```{r setup and library load, include=FALSE}

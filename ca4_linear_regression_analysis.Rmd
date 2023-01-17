@@ -1,7 +1,14 @@
 ---
-title: "R Notebook"
-output: html_notebook
+title: "CA 4 Part B - Linear Regression Analysis"
+subtitle: "Analysis of linear regression performed on ramdomly sampled data from a pair of columns from a survey of gamer preferences"
+author: "Gareth Burger"
+date: "January, 2023"
+output: 
+  html_document:
+    code_folding: hide
 ---
+
+
 1. Title (see YAML header)
 
 2. A 1-2 line subtitle of file contents (see YAML header)

@@ -98,7 +98,30 @@ dbExecute(conn, "DELETE FROM mtcars WHERE mpg <= 20")
 
 result <-  dbGetQuery(conn, "SELECT * FROM mtcars")
 result
+```
 
+```{r echo=TRUE}
+# use an R chunk to query and store the results
+result <- dbGetQuery(conn, "SELECT * FROM mtcars")
+result
+
+```
+
+```{sql connection=conn output.var="car_data"}
+# use a SQL chunk to query and store the results
+SELECT * FROM mtcars
+
+#INSERT INTO mtcars VALUES()
+
+```
+
+```{r}
+car_data
+```
+
+
+
+```{r}
 # do not forget to disconnect - otherwise we may hit a remote connection limit
 dbDisconnect(conn)
 ```

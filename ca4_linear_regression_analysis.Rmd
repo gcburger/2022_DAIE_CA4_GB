@@ -1,6 +1,6 @@
 ---
 title: "CA 4 Part B - Linear Regression Analysis"
-subtitle: "Analysis of linear regression performed on ramdomly sampled data from a pair of columns from a survey of gamer preferences"
+subtitle: "Analysis of linear regression performed on ramdomly sampled data from a pair of columns from a survey of gamer preferences. This includes statement and testing of assumptions followed by intrepretation and dicussion of obtained results."
 author: "Gareth Burger"
 date: "January, 2023"
 output: 
@@ -8,47 +8,58 @@ output:
     code_folding: hide
 ---
 
+- Attempting to determine whether any two variables are correlated
 
-1. Title (see YAML header)
+# Statement of Assumptions
+(clearly state any assumptions made with respect to the variables chosen for analysis)
 
-2. A 1-2 line subtitle of file contents (see YAML header)
-
-3. Statement of Assumptions (clearly state any assumptions made with respect to the variables chosen
-for analysis)
  - the observations are independent i.e. respondents 1 giving their results didn't affects respondent 2's results
  - the values within a particular field, the data is normally distributed
  - homoscedasticity (the data points don't diverge from the linear line, does the data fit within the top and bottom bounding lines)
  - can assume randomly sampled and that no hidden relationships exist (as stated in CA, can restate)
+ 
 
 
-- Attempting to determine whether any two variables are correlated
 
-4. Testing of Assumptions (provide measures, plots and/or justification for your assumptions)
+# Testing of Assumptions
+(provide measures, plots and/or justification for your assumptions)
  - tests for normality - shapiro wilk test
  - test for homoscedasticity
  https://www.scribbr.com/statistics/simple-linear-regression/
+ 
+ 
 
+# Results
 5. Discuss and interpret the analysis conducted and results obtained.
 - degree of correlation, r2 value
 - should end with a plot of data and a line that fits the data - use ggplot https://www.youtube.com/watch?v=HPJn1CMvtmI&ab_channel=RProgramming101
 # simple package 'include' library and a single call to a single function to make ggplot graph
 
-6. R Code
+
+# R Code
 • A 1-3 line description of each R code chunk
-• R code chunk to load and randomly sample data
-• R code code calculating linear regression for data
-• R code chunk using GGPLOT2 to generate linear regression plot(s)
 
-Step 1
-# load the data
-Load the csv file
+```{r Load Data, echo=TRUE}
+# R code chunk to load and randomly sample data
+# description: to randomly sample the data and to allow some degree of variability across results
+# The sample() function in R allows you to take a random sample of elements from a dataset or a vector, either with or without replacement
 
-Step 2
-Sample 200 random elements from the file
-```{r}
-# to randomly sample the data and to allow some degree of variability across results
-#?sample
-sample()
+# load data from the csv
+file_name = "./data/amalgamated_game_survey_250_2022.csv"
+game_survey_data <- read.csv(file_name)
+
+# sample 200 random elements from the data
+
+# set.seed(some random number) to ensure that we get the same sample each time
+set.seed(387)
+
+# sample a random vector of 200 elements from all 250 rows in the game_survey_data dataset
+sample_rows <- sample(1:nrow(game_survey_data), 200)
+sample_rows
+
+# select the 200 rows that match the sampled row numbers
+sample <- game_survey_data[sample_rows, ]
+sample
 ```
 
 Step 3
@@ -60,3 +71,13 @@ https://www.scribbr.com/statistics/simple-linear-regression/
 - Pick two attributes, two columns and determine the degree of correlation between the two variables
 - and give some brief discussion and analysis of the correlation
 - what is the degree of correlation, are they positively or negatively correlated
+
+```{r}
+# R code code calculating linear regression for data
+
+```
+
+```{r}
+# R code chunk using GGPLOT2 to generate linear regression plot(s)
+
+```

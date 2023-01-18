@@ -3,11 +3,11 @@ title: "CA 4: Part B - Linear Regression Analysis"
 author: "Gareth Burger"
 date: "January, 2023"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     toc: yes
     df_print: paged
-  pdf_document:
-    toc: yes
   html_notebook:
     toc: yes
 subtitle: Analysis of linear regression performed on randomly sampled data from a
@@ -50,7 +50,7 @@ Furthermore, it can be assumed that the data is randomly sampled and that no hid
 ### Loading and Randomly Sampling the Data
 ```{r Load Data, echo=TRUE}
 # load data from the csv
-file_name = "./data/amalgamated_game_survey_250_2022.csv"
+file_name = "../data/amalgamated_game_survey_250_2022.csv"
 game_survey_data <- read.csv(file_name)
 
 # sample 200 random elements from the data
@@ -128,12 +128,11 @@ The distribution of the data points in the scatter plot above cannot be describe
 
 ### Linear Regression Analysis
 
-**explain**
+Linear regression analysis is performed to evaluate the relationship between the independent and dependent variables. It also allows us to further test for homoscedasticity (below).
 
 ```{r Linear Regression, echo=TRUE}
-# perform simple linear regression analysis on the variable pair
-age.spend.lm <- lm(sample$avg_monthly_expenditure_dlc ~ sample$age, data = sample)
-summary(age.spend.lm)
+# perform simple linear regression analysis on the variable pair and create the model
+age_spend_lm <- lm(avg_monthly_expenditure_dlc ~ age, data = sample)
 ```
 
 ---
@@ -142,14 +141,14 @@ summary(age.spend.lm)
 ```{r Homoscedasticity, echo=TRUE}
 # plot to check for homoscedasticity
 par(mfrow=c(2,2))
-plot(age.spend.lm)
+plot(age_spend_lm)
 par(mfrow=c(1,1))
 ```
 As can be seen in the residual plots above, the mean of the residuals (represented by the red lines) are not horizontal or centered around zero. This means that there are biases in the sample data that make linear regression analysis invalid. The real residuals do not fit with or closely to the theoretical residuals of a perfect model, thus the sample data does not meet the assumption of homoscedasticity.
 
 ---
 
-# Results
+# Results 
 The results of the assumption testing indicate that the data is not suitable for linear regression, namely:
 
 1. **Normality** 
@@ -160,17 +159,23 @@ The results of the assumption testing indicate that the data is not suitable for
     - As seen in the scatter plot, the independent and dependent variable do not have a linear relationship and one is not able to draw a straight line of best fit
 3. **Homoscedasticity**
     - There is a significant change in the variance of error for each value of the independent variable and sample points do not fit within straight line bounds, meaning the data is not homogeneous in variance
+    
+For the purpose of this exercise, let's assume that the data was suitable for simple linear regression.
 
-```{r}
-# R code using GGPLOT2 to generate linear regression plot(s)
-
-# Create a scatter plot
-# https://ggplot2.tidyverse.org/
-# https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf
-ggplot(sample, aes(x = gender, y = avg_monthly_expenditure_dlc)) +
-  labs(x = "Gender", y = "Amount Spent", title = "Average Monthly Expenditure on DLC") +
-  geom_point(aes(color = gender)) +
-  theme_light()
-  #theme_minimal()
+```{r, echo=TRUE}
+# display a summary of the linear regression model
+summary(age_spend_lm)
 ```
----
+In this case, the p-value of the model (p = 0.29) is greater than 0.001 which means we must accept the null hypothesis that there is no statistically significant relationship between age and average monthly expenditure on DLC.
+
+If we were to visualise the results of a valid simple linear regression, the code below plots the data points and linear regression line on a graph:
+
+```{r, echo=TRUE}
+# R code using GGPLOT2 to generate linear regression plot
+age_spend_graph <- ggplot(sample, aes(x = age, y = avg_monthly_expenditure_dlc)) +
+  labs(x = "Age", y = "Amount Spent", title = "Average Monthly Expenditure on DLC as a function of Age") +
+  geom_point() +
+  geom_smooth(method="lm", col="black") +
+  theme_light()
+age_spend_graph
+```

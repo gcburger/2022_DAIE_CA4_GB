@@ -15,7 +15,7 @@ PDF (R Studio):
 
 HTML (R Studio): 
 
-PDF (HTML (R Studio) outputted to 'Print to PDF'):
+PDF (HTML (R Studio) output to 'Print to PDF'):
 
 #### Part B Reports
 
@@ -23,4 +23,4 @@ PDF (R Studio): https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_li
 
 HTML (R Studio): https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_linear_regression/Report_PartB_Linear_Regression_Analysis.html
 
-PDF (HTML (R Studio) outputted to 'Print to PDF'): https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_linear_regression/Report_PartB_Linear_Regression_Analysis_html.pdf
+PDF (HTML (R Studio) output to 'Print to PDF'): https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_linear_regression/Report_PartB_Linear_Regression_Analysis_html.pdf

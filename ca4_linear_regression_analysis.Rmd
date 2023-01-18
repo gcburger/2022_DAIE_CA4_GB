@@ -32,15 +32,15 @@ To perform linear regression on data from a survey of gamer preferences. The var
 ---
 
 # Statement of Assumptions
-Independent variable: Age
+Independent variable: Age\
 Dependent variable: Average Monthly Expenditure DLC
 
 Linear regression makes certain assumptions concerning the data it is testing. These four assumptions are described below:\
 
-1. **Independence** - observations are independent of each other
+1. **Normality** - the data of the dependent variable follows a normal distribution 
 2. **Linearity** - the relationship between the independent and dependent variable is linear (the line of best fit is a straight line)
 3. **Homoscedasticity** - the variance of the error doesn't change significantly for each value of the independent variable (the data points don't diverge significantly from the linear line of best fit)
-4. **Normality** - the data of the dependent variable follows a normal distribution
+4. **Independence** - observations are independent of each other
 
 Furthermore, it can be assumed that the data is randomly sampled and that no hidden relationships exist among observations in the dataset.
 
@@ -77,7 +77,10 @@ hist(sample$avg_monthly_expenditure_dlc,
      breaks = 30, 
      col = 'steelblue')
 ```
+
 The histogram of the dependent variable does not exhibit data that is normally distributed as it is not bell-shaped in nature, but rather is more of a multimodal distribution.
+
+---
 
 #### Method 2: Using Q-Q Plot
 ```{r QQ Plot, echo=TRUE}
@@ -91,28 +94,72 @@ qqline(sample$avg_monthly_expenditure_dlc,
        lwd = 1)
 ```
 
+In the Q-Q plot above, a large amount of points fall roughly along the diagonal Q-Q line giving us the impression that the data could be normally distributed. However, there are also a significant number of points that do not adhere to the diagonal line, thus further testing for normality is required. 
+
+---
+
 #### Method 3: Shapiro-Wilk Test
+
+The threshold for normality is 0.05 (5%). If the p-value is above the threshold then we can accept the data to be normally distributed.\
+
 ```{r Shapiro-Wilk, echo=TRUE}
 # perform Shapiro-Wilk test for normality
 st <- shapiro.test(sample$avg_monthly_expenditure_dlc)
 st
 ```
+
+A `r st$method` was conducted on the average monthly expenditure DLC sample data.\
+From the output obtained we cannot assume normality as the p-value (p = `r round(st$p.value, 8)`) is less than 0.05.
  
 ---
 
-# Results
-Look at the data and determine whether it is suitable for linear regression
-5. Discuss and interpret the analysis conducted and results obtained.
-- degree of correlation, r2 value
-- should end with a plot of data and a line that fits the data - use ggplot
+### Testing for Linearity
+```{r Scatter Plot, echo=TRUE}
+# draw a scatter plot for avg_monthly_expenditure_dlc
+plot(sample$age, sample$avg_monthly_expenditure_dlc,
+     main = "Average Monthly Expenditure on DLC",
+     xlab = "Age",
+     ylab = "Amount Spent")
+```
+
+The distribution of the data points in the scatter plot above cannot be described with a straight line, which indicates that the relationship between the independent and dependent variable is not linear.
 
 ---
 
-```{r}
-# R code calculating linear regression for data
+### Linear Regression Analysis
 
+**explain**
 
+```{r Linear Regression, echo=TRUE}
+# perform simple linear regression analysis on the variable pair
+age.spend.lm <- lm(sample$avg_monthly_expenditure_dlc ~ sample$age, data = sample)
+summary(age.spend.lm)
 ```
+
+---
+
+### Testing for Homoscedasticity
+```{r Homoscedasticity, echo=TRUE}
+# plot to check for homoscedasticity
+par(mfrow=c(2,2))
+plot(age.spend.lm)
+par(mfrow=c(1,1))
+```
+As can be seen in the residual plots above, the mean of the residuals (represented by the red lines) are not horizontal or centered around zero. This means that there are biases in the sample data that make linear regression analysis invalid. The real residuals do not fit with or closely to the theoretical residuals of a perfect model, thus the sample data does not meet the assumption of homoscedasticity.
+
+---
+
+# Results
+The results of the assumption testing indicate that the data is not suitable for linear regression, namely:
+
+1. **Normality** 
+    - The histogram of the dependent variable does not exhibit normally distributed data
+    - Sample points of the data do not aptly fit the diagonal Q-Q line in the Q-Q plot
+    - The Shapiro-Wilk test results in a p-value that is below the threshold for normally distributed data
+2. **Linearity**
+    - As seen in the scatter plot, the independent and dependent variable do not have a linear relationship and one is not able to draw a straight line of best fit
+3. **Homoscedasticity**
+    - There is a significant change in the variance of error for each value of the independent variable and sample points do not fit within straight line bounds, meaning the data is not homogeneous in variance
 
 ```{r}
 # R code using GGPLOT2 to generate linear regression plot(s)
@@ -126,3 +173,4 @@ ggplot(sample, aes(x = gender, y = avg_monthly_expenditure_dlc)) +
   theme_light()
   #theme_minimal()
 ```
+---

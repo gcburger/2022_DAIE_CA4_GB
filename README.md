@@ -7,11 +7,16 @@
 #### Repository
 R source code: https://github.com/gcburger/2022_DAIE_CA4_GB
 
-#### Report
-For your convenience and to account for any file formatting issues, please find different versions of the report below:
+For your convenience and to account for any file formatting issues, please find different versions of the reports below:
 
-PDF (R Studio): 
+#### Report - Part A
 
-HTML (R Studio): 
+PDF: 
 
-PDF (HTML (R Studio) outputted to 'Print to PDF'): 
+HTML: 
+
+#### Report - Part B
+
+PDF: https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_linear_regression/Report_PartB_Linear_Regression_Analysis.pdf
+
+HTML: https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_linear_regression/Report_PartB_Linear_Regression_Analysis.html

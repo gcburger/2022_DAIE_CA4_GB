@@ -50,7 +50,7 @@ Furthermore, it can be assumed that the data is randomly sampled and that no hid
 ### Loading and Randomly Sampling the Data
 ```{r Load Data, echo=TRUE}
 # load data from the csv
-file_name = "../data/amalgamated_game_survey_250_2022.csv"
+file_name = "./amalgamated_game_survey_250_2022.csv"
 game_survey_data <- read.csv(file_name)
 
 # sample 200 random elements from the data

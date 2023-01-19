@@ -4,12 +4,22 @@
 
 ##### CA4 Jan 2023: Gareth Burger
 
+---
+
 #### Repository
 R source code: https://github.com/gcburger/2022_DAIE_CA4_GB
 
-For your convenience and to account for any file formatting issues, please find different versions of the reports below:
+---
 
-#### Part A Reports
+#### Part A
+
+SQL Script (Vertabelo):
+
+E-R Diagram:
+
+SQLite database:
+
+**Report - Database Generation**
 
 PDF (R Studio): 
 
@@ -17,10 +27,24 @@ HTML (R Studio):
 
 PDF (HTML (R Studio) output to 'Print to PDF'):
 
-#### Part B Reports
+**Report - Data Queries**
 
-PDF (R Studio): https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_linear_regression/Report_PartB_Linear_Regression_Analysis.pdf
+PDF (R Studio): 
 
-HTML (R Studio): https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_linear_regression/Report_PartB_Linear_Regression_Analysis.html
+HTML (R Studio): 
 
-PDF (HTML (R Studio) output to 'Print to PDF'): https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_linear_regression/Report_PartB_Linear_Regression_Analysis_html.pdf
+PDF (HTML (R Studio) output to 'Print to PDF'):
+
+---
+
+#### Part B
+
+For your convenience and to account for any file formatting issues, please find different versions of the reports below:
+
+**Report**
+
+PDF (R Studio): https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_linear_regression/ca4_linear_regression_analysis.pdf
+
+HTML (R Studio): https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_linear_regression/ca4_linear_regression_analysis.html
+
+PDF (HTML (R Studio) output to 'Print to PDF'): https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_b_linear_regression/ca4_linear_regression_analysis_html.pdf

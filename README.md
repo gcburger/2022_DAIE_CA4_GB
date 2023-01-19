@@ -35,7 +35,7 @@ https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_a_db_sql/ca4_generat
 PDF (R Studio):\
 https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_a_db_sql/ca4_query.pdf
 
-HTML (R Studio):\ 
+HTML (R Studio):\
 https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_a_db_sql/ca4_query.html
 
 ---

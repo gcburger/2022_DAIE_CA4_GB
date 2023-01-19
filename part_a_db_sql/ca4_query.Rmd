@@ -1,6 +1,6 @@
 ---
-title: "CA4 RDBMS - Query Database"
-subtitle: "Querying a SQLite database"
+title: "CA 4: Part A - Database Design & SQL Querying"
+subtitle: "R and SQL code to query a SQLite database"
 author: "Gareth Burger"
 date: "January, 2023"
 output: 

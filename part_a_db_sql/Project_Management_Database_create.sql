@@ -1,13 +1,18 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2023-01-19 01:48:22.917
+-- Last modification date: 2023-01-19 14:04:00.916
 
 -- tables
 -- Table: asset
 CREATE TABLE asset (
     id int NOT NULL CONSTRAINT asset_pk PRIMARY KEY,
-    description varchar(128) NOT NULL,
-    type varchar(128) NOT NULL,
-    project_id int NOT NULL,
+    asset_description varchar(128) NOT NULL,
+    asset_type varchar(128) NOT NULL,
+    project_id int NOT NULL
+);
+
+-- Table: asset_library_mapping
+CREATE TABLE asset_library_mapping (
+    asset_id int NOT NULL,
     library_id int NOT NULL
 );
 
@@ -21,7 +26,6 @@ CREATE TABLE library (
 CREATE TABLE project (
     id int NOT NULL CONSTRAINT project_pk PRIMARY KEY,
     project_name varchar(128) NOT NULL,
-    description text NOT NULL,
     delivery_date date NOT NULL,
     team_id int NOT NULL
 );
@@ -50,8 +54,8 @@ CREATE TABLE team_member (
 -- Table: work_item
 CREATE TABLE work_item (
     id int NOT NULL CONSTRAINT work_item_pk PRIMARY KEY,
-    description text NOT NULL,
-    status varchar(64) NOT NULL,
+    work_item_description text NOT NULL,
+    work_item_status varchar(64) NOT NULL,
     asset_id int NOT NULL,
     team_member_id int NOT NULL
 );

@@ -1,87 +1,123 @@
 ---
 title: "CA 4: Part A - Database Design & SQL Querying"
-subtitle: "R and SQL code to query a SQLite database"
 author: "Gareth Burger"
 date: "January, 2023"
-output: 
+output:
+  pdf_document: default
   html_document:
-    code_folding: hide
+    code_folding: show
+subtitle: R and SQL code to query a SQLite database
 ---
 
-```{r setup and library load, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r Setup and Library Load, include=FALSE}
 # clear console on each execute and set chunk default to not show code
 cat('\014')
+
+if(!require("RSQLite"))
+  install.packages("RSQLite")
+if(!require("knitr"))
+  install.packages("RSQLite")
+
+library(RSQLite)
+library(knitr)
 ```
 
 ---
 
+## Connect to SQLite Database
 ```{r}
-# download and load libraries
-if(!require("DBI"))
-  install.packages("DBI")
-if(!require("dplyr"))
-  install.packages("dplyr")
-if(!require("readr"))
-  install.packages("readr")
+# connect to the local SQLite database
+conn <- dbConnect(RSQLite::SQLite(), dbname = "daie_ca4_data.sqlite")
+```
 
-library(DBI)
-library(dplyr)
-library(readr)
+---
 
-# connect (and create) a new local SQLite DB
+# Database Queries
 
-conn <- dbConnect(RSQLite::SQLite(), "mtcars_db.sqlite")
+### 1. SELECT with WHERE, LIKE, and OR
+```{r}
+# select data from table using where, like and or clauses
+result <- dbGetQuery(conn, "SELECT first_name, last_name
+                            FROM team_member
+                            WHERE last_name LIKE '%oo%'
+                            OR first_name LIKE '%ia%'")
 
-mtcars
+# display the results in a table using kable (in knitr package)
+kable(result, 
+      col.names = c("First Name", "Last Name"), 
+      caption = "List of Team Members with Names Containing 'oo' or 'ia'")
+```
 
-# Add table data to the SQLite DB
+---
 
-dbWriteTable(conn, "mtcars", mtcars, overwrite = T, append = F)
+### 2. SELECT with DISTINCT and ORDER BY
+```{r}
+# select data from table using distinct and order by
+result <- dbGetQuery(conn, "SELECT DISTINCT asset_type
+                            FROM asset
+                            ORDER BY asset_type")
 
-# Test the DB
+# display the results in a table using kable (in knitr package)
+kable(result, 
+      col.names = c("Asset Types"), 
+      caption = "List of Distinct Asset Types")
+```
 
-# View(mtcars)
+---
 
-dbListTables(conn)
-dbListFields(conn, "mtcars")
+### 3. Inner Join
+```{r}
+# select data from tables using an inner join
+result <- dbGetQuery(conn, "SELECT asset_description, asset_type, project_name
+                            FROM asset
+                            INNER JOIN project
+                            ON asset.project_id = project.id")
 
-# Query and store the results
+# display the results in a table using kable (in knitr package)
+kable(result, 
+      col.names = c("Asset Description", "Asset Type", "Project Name"), 
+      caption = "List of Assets and associated Projects")
+```
 
-# CRUD - Create, Rename, Update, Delete
+---
 
-# result <-  dbGetQuery(conn, "SELECT * FROM mtcars")
-# result
+### 4. Subquery with SELECT
+```{r}
+# select data from tables using a select subquery
+result <- dbGetQuery(conn, "SELECT first_name, last_name, role_name
+                            FROM team_member
+                            INNER JOIN role
+                            ON team_member.role_id = role.id
+                            WHERE team_id IN (SELECT team_id
+                                  FROM team_member
+                                  WHERE team_id = 2)")
 
-# result <-  dbGetQuery(conn, "SELECT wt, disp, mpg FROM mtcars")
-# result
+# display the results in a table using kable (in knitr package)
+kable(result, 
+      col.names = c("First Name", "Last Name", "Role"), 
+      caption = "List of Team Members in Team 2")
+```
 
-# result <-  dbGetQuery(conn, "SELECT * FROM mtcars WHERE mpg >= 18 AND mpg <= 22")
-# result
+---
 
-# result <-  dbGetQuery(conn, "SELECT * FROM mtcars WHERE mpg >= 18 AND mpg <= 22 ORDER BY hp ASC LIMIT 4")
-# result
+### 5. SELECT across a Date Range
+```{r}
+# select data from table between a range of dates
+result <- dbGetQuery(conn, "SELECT project_name, delivery_date
+                            FROM project
+                            WHERE delivery_date >= '2023-01-01'
+                            AND delivery_date <= '2023-06-30'")
 
-# result <-  dbGetQuery(conn, "SELECT * FROM mtcars WHERE mpg >= 18 AND mpg <= 22 ORDER BY hp ASC LIMIT 4")
-# result
+# display the results in a table using kable (in knitr package)
+kable(result, 
+      col.names = c("Project Name", "Delivery Date"), 
+      caption = "List of Projects due by end of Q2 2023")
+```
 
-# result <-  dbGetQuery(conn, "SELECT COUNT(mpg) FROM mtcars WHERE mpg > 25")
-# result
-# 
-# result <-  dbGetQuery(conn, "SELECT AVG(hp) FROM mtcars")
-# result
+---
 
-# Execute a query with no result
-
-result <-  dbGetQuery(conn, "SELECT * FROM mtcars")
-result
-
-dbExecute(conn, "DELETE FROM mtcars WHERE mpg <= 20")
-
-result <-  dbGetQuery(conn, "SELECT * FROM mtcars")
-result
-
-# Do NOT forget to disconnect - otherwise we may hit a remote connection limit
-
+### Close Database Connection
+```{r Disconnect}
+# close the connection to the database to avoid hitting a connection limit
 dbDisconnect(conn)
 ```

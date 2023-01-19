@@ -19,7 +19,7 @@ https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_a_db_sql/Project_Man
 E-R Diagram:\
 https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_a_db_sql/ER_diagram.png
 
-SQLite database:\
+SQLite Database:\
 https://github.com/gcburger/2022_DAIE_CA4_GB/blob/main/part_a_db_sql/daie_ca4_data.sqlite
 
 **Report - Database Generation**
